@@ -4,9 +4,9 @@
 
 2. Далее добавить развёрнутую ВМ в инвентарь ansible и назвать узел nginx
 
-3. Скачать плейбук на сервер ansible wget https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson2/lesson2.yml
+3. Скачать плейбук на сервер ansible ```wget https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson2/lesson2.yml```
 
-4. Так же скачать шаблон и обработчик wget https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson2/handlers/restart%20nginx https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson2/templates/nginx.conf.j2
+4. Так же скачать шаблон и обработчик ```wget https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson2/handlers/restart%20nginx https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson2/templates/nginx.conf.j2```
 
 5. Запустить плейбук 
 
