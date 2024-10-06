@@ -1,0 +1,44 @@
+# Описываем Виртуальные машины
+MACHINES = {
+  # Указываем имя ВМ для vagrant
+  :"Lesson2" => {
+            # Какой vm box будем использовать
+            :box_name => "ubuntu/jammy64",
+            # Указываем количество ядер ВМ
+            :cpus => 2,
+            # Указываем количество ОЗУ в мегабайтах
+            :memory => 2048,
+            # Имя ВМ для virtual box
+            :vm_name => "Lesson2"
+          }
+}
+
+Vagrant.configure("2") do |config|
+  MACHINES.each do |boxname, boxconfig|
+    # Монтируем папку с ключом на Windows в гостевой системе
+    # config.vm.synced_folder "Q:/1VirtualBox/vagrant/.vagrant/ssh/ansible", "/vagrant/ssh/ansible"
+    
+    # Получение IP адреса по DHCP
+    config.vm.network "public_network"
+
+    # Применяем конфигурацию ВМ
+    config.vm.define boxname do |box|
+      box.vm.box = boxconfig[:box_name]
+      box.vm.host_name = boxconfig[:vm_name]
+      box.vm.provider "virtualbox" do |v|
+        v.memory = boxconfig[:memory]
+        v.cpus = boxconfig[:cpus]
+      end
+
+      # Генерация SSH ключей и настройка SSH
+      box.vm.provision "shell", inline: <<-SHELL
+        mkdir -p ~root/.ssh
+        cp ~vagrant/.ssh/auth* ~root/.ssh
+        sudo sed -i 's/\\#PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+      # Копирование публичного ключа Ansible сервера в authorized_keys
+      # cat /vagrant/ssh/ansible/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+        systemctl restart sshd
+      SHELL
+    end
+  end
+end
