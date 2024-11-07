@@ -1,0 +1,89 @@
+Script started on Thu 07 Nov 2024 06:31:46 PM UTC
+]0;root@lvm:~[?1034h[root@lvm ~]# ls -l
+total 16
+-rw-------. 1 root root 5763 May 12  2018 anaconda-ks.cfg
+-rw-r--r--. 1 root root    0 Nov  7 18:31 lesson4-1
+-rw-------. 1 root root 5432 May 12  2018 original-ks.cfg
+]0;root@lvm:~[root@lvm ~]# lsblk
+NAME                    MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+sda                       8:0    0   40G  0 disk 
+├─sda1                    8:1    0    1M  0 part 
+├─sda2                    8:2    0    1G  0 part /boot
+└─sda3                    8:3    0   39G  0 part 
+  ├─VolGroup00-LogVol00 253:0    0 37.5G  0 lvm  /
+  └─VolGroup00-LogVol01 253:1    0  1.5G  0 lvm  [SWAP]
+sdb                       8:16   0   10G  0 disk 
+sdc                       8:32   0    2G  0 disk 
+sdd                       8:48   0    1G  0 disk 
+sde                       8:64   0    1G  0 disk 
+]0;root@lvm:~[root@lvm ~]# pvcreate /dev/sdb
+  Physical volume "/dev/sdb" successfully created.
+]0;root@lvm:~[root@lvm ~]# [K[root@lvm ~]# [K[root@lvm ~]# vgcreate vg_root /dev/sdb
+  Volume group "vg_root" successfully created
+]0;root@lvm:~[root@lvm ~]# lvcreate -n lv_root -l +100%FREE /dev/vg_root
+  Logical volume "lv_root" created.
+]0;root@lvm:~[root@lvm ~]# mkfs.xfs /dev/vg_root/lv_root
+meta-data=/dev/vg_root/lv_root   isize=512    agcount=4, agsize=655104 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=0, sparse=0
+data     =                       bsize=4096   blocks=2620416, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0 ftype=1
+log      =internal log           bsize=4096   blocks=2560, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+]0;root@lvm:~[root@lvm ~]# mount /dev/vg_root/lv_root /mnt
+]0;root@lvm:~[root@lvm ~]# yum install xfsdump
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+Resolving Dependencies
+--> Running transaction check
+---> Package xfsdump.x86_64 0:3.1.7-4.el7_9 will be installed
+--> Processing Dependency: attr >= 2.0.0 for package: xfsdump-3.1.7-4.el7_9.x86_64
+--> Running transaction check
+---> Package attr.x86_64 0:2.4.46-13.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+=======================================================================================
+ Package           Arch             Version                    Repository         Size
+=======================================================================================
+Installing:
+ xfsdump           x86_64           3.1.7-4.el7_9              updates           309 k
+Installing for dependencies:
+ attr              x86_64           2.4.46-13.el7              base               66 k
+
+Transaction Summary
+=======================================================================================
+Install  1 Package (+1 Dependent package)
+
+Total download size: 375 k
+Installed size: 1.1 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(2/2): xfsdump-3.1.7-4.el7_9. 0% [                   ]  0.0 B/s |    0 B  --:--:-- ETA (1/2): attr-2.4.46-13.el7.x86_64.rpm                            |  66 kB  00:00:00     
+(2/2): xfsdump-3.1.7-4.el7_9.x86_64.rpm                         | 309 kB  00:00:00     
+---------------------------------------------------------------------------------------
+Total                                                     304 kB/s | 375 kB  00:01     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : attr-2.4.46-13.el7.x86_64 [                                       ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##                                     ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#######                                ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##########                             ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###########                            ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###############                        ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [################                       ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###################                    ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [####################                   ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [########################               ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#########################              ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##########################             ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###########################            ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [############################           ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [##############################         ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###############################        ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [################################       ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#################################      ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###################################    ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [####################################   ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [#####################################  ] 1/2  Installing : attr-2.4.46-13.el7.x86_64 [###################################### ] 1/2  Installing : attr-2.4.46-13.el7.x86_64                                           1/2 
+  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [                                    ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [##                                  ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [####                                ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [#######                             ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [#########                           ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [##########                          ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [#############                       ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [###############                     ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [##################                  ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [####################                ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [#######################             ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [#########################           ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [##########################          ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [###########################         ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [############################        ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [##############################      ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [################################    ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [##################################  ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64 [################################### ] 2/2  Installing : xfsdump-3.1.7-4.el7_9.x86_64                                        2/2 
+  Verifying  : attr-2.4.46-13.el7.x86_64                                           1/2 
+  Verifying  : xfsdump-3.1.7-4.el7_9.x86_64                                        2/2 
+
+Installed:
+  xfsdump.x86_64 0:3.1.7-4.el7_9                                                       
+
+Dependency Installed:
+  attr.x86_64 0:2.4.46-13.el7                                                          
+
+Complete!
+]0;root@lvm:~[root@lvm ~]# xfsdump -J - /dev/VolGroup00/LogVol00 | xfsrestore -J - /mnt
+xfsrestore: using file dump (drive_simple) strategy
+xfsrestore: version 3.1.7 (dump format 3.0)
+xfsdump: using file dump (drive_simple) strategy
+xfsdump: vers
