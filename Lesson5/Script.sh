@@ -19,7 +19,6 @@ for i in {1..4}; do
     wget -P /otus$i https://gutenberg.org/cache/epub/2600/pg2600.converter.log >> Script.log 2>&1
 done
 
-echo "ZFS pools and datasets:"
 zfs list
 
 #-------------------------------------------------------------
@@ -34,7 +33,6 @@ tar -xzvf archive.tar.gz >> Script.log 2>&1
 
 zpool import -d zpoolexport/ otus >> Script.log 2>&1
 
-echo "ZFS properties for 'otus':"
 zfs get available otus
 zfs get readonly otus
 zfs get recordsize otus
