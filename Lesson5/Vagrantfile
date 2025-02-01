@@ -1,4 +1,3 @@
-# Описываем виртуальные машины
 MACHINES = {
   :"Lesson5" => {
     :box_name => "ubuntu/jammy64",
@@ -10,7 +9,7 @@ MACHINES = {
 
 Vagrant.configure("2") do |config|
   MACHINES.each do |boxname, boxconfig|
-    # Отключаем синхронизацию папки
+
     config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.network "public_network", bridge: "Ethernet"
 
@@ -18,13 +17,11 @@ Vagrant.configure("2") do |config|
       box.vm.box = boxconfig[:box_name]
       box.vm.host_name = boxconfig[:vm_name]
 
-      # Настройка ресурсов ВМ
       box.vm.provider "virtualbox" do |v|
         v.memory = boxconfig[:memory]
         v.cpus = boxconfig[:cpus]
       end
 
-      # Добавление дополнительных дисков
       box.vm.disk :disk, size: "512MB", name: "disk1"
       box.vm.disk :disk, size: "512MB", name: "disk2"
       box.vm.disk :disk, size: "512MB", name: "disk3"
@@ -35,12 +32,12 @@ Vagrant.configure("2") do |config|
       box.vm.disk :disk, size: "512MB", name: "disk8"
       box.vm.disk :disk, size: "512MB", name: "disk9"
 
-      # Провизия для установки пакетов
       box.vm.provision "shell", inline: <<-SHELL
-        # Обновление системы и установка базовых утилит
         apt-get update -y
         apt-get upgrade -y
         apt-get install -y wget zfsutils-linux
+        wget http://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson5/Script.sh -O /home/vagrant/Script.sh
+        chmod +x /home/vagrant/Script.sh
       SHELL
     end
   end
