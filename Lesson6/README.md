@@ -1,5 +1,5 @@
 Для проверки домашней работы необходимо:
 
-1. Скачать и выполнить Vagrantfile https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson5/Vagrantfile. После подключиться к созданой ВМ с помошью `vagrant ssh`.
+1. Скачать и выполнить Vagrantfile[https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson6/Vagrantfile]. После подключиться к созданой ВМ выступющей клиентом с помошью `vagrant ssh nfsc`.
 
-2. Далее просто выполнить команду `sudo ./Script.sh` по окончанию выполнения скрипта на экран будет выведена необходимая информация для проверки домашнего задания, а вся лишняя (производственная) информация будет записана в лог-файл Script.log
+2. Далее проверить файл который создался в примонтированной директории 'cat /mnt/nfs/upload/check_file.txt'
