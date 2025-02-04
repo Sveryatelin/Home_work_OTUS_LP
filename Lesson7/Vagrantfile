@@ -1,0 +1,32 @@
+MACHINES = {
+  :"Lesson7" => {
+    :box_name => "eurolinux-vagrant/centos-stream-9",
+    :cpus => 2,
+    :memory => 2048,
+    :vm_name => "Lesson7"
+  }
+}
+
+Vagrant.configure("2") do |config|
+  MACHINES.each do |boxname, boxconfig|
+
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.vm.network "public_network", bridge: "Ethernet"
+
+    config.vm.define boxname do |box|
+      box.vm.box = boxconfig[:box_name]
+      box.vm.host_name = boxconfig[:vm_name]
+
+      box.vm.provider "virtualbox" do |v|
+        v.memory = boxconfig[:memory]
+        v.cpus = boxconfig[:cpus]
+      end
+
+      box.vm.disk :disk, size: "512MB", name: "disk1"
+      box.vm.disk :disk, size: "512MB", name: "disk2"
+
+      box.vm.provision "shell", path: "script.sh"
+    end
+
+  end
+end
