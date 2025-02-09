@@ -5,8 +5,11 @@
 
 2. И проверить успешность выполения заданий=)
 ```bash
+#Task 1
 tail -n 1000 /var/log/syslog  | grep word
+#Task 2
 systemctl status spawn-fcgi
+#Task 3
 ss -tnulp | grep nginx
 systemctl status nginx@first.service
 systemctl status nginx@second.service
