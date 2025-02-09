@@ -19,7 +19,6 @@ EOF
 
 # Create sh
 cat <<EOF > /opt/watchlog.sh
-#!/bin/bash
 
 WORD=\$1
 LOG=\$2
