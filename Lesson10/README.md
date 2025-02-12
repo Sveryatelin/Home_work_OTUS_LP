@@ -1,7 +1,7 @@
 ## BASH
 Для проверки домашней работы необходимо:
 
-1. Скачать [script.sh](https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson10/script.sh) на веб сервер с nginx и выполнить `bash script.sh`
+1. Скачать [script.sh](https://raw.githubusercontent.com/Sveryatelin/Home_work_OTUS_LP/refs/heads/main/Lesson10/script.sh) на сервер с установленным nginx и выполнить `bash script.sh`
 2. Скрипт отправляет отчёт на почту пользователя root. Его можно увидеть в `/var/mail/root` или в `/var/spool/mail/root`
 
 
